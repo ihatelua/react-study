@@ -153,3 +153,54 @@ module.exports = {User}
 <br><br>
 
 ## :large_orange_diamond: BodyParser 와 PostMan 및 회원가입 기능
+
+### BodyParser 설치하기
+
+클라이언트가 서버에 데이터를 보냈을때, 서버가 클라이언트가 보낸 데이터를 확인해야하는데, 클라이언트가 준 데이터를 그대로 사용하기가 어려워 데이터를 정제하여 서버로 보내야하는데 그 때 필요한 라이브러리가 BodyParser 이다.
+
+```
+npm install body-parser --save
+```
+
+<br>
+
+### PostMan 설치하기
+
+클라이언트가 서버에 접속하면서 request(데이터) 를 보내야하는데 데이터를 쉽게 보낼수 있는 툴.
+구글에 검색하면 무료로 다운로드 가능하다.
+
+
+<br>
+
+
+### Route 만들기
+```javascript
+// register 로 접속할때 보낸 api로 mongoDB에 저장
+app.post('/register', (req, res) => {
+/*
+    // 이렇게 보내면 mongoDB에 저 데이터에 맞게 저장되어있다.
+{
+    "name":"ponyo",
+    "email":"ponyo@gmail.com",
+    "password":"1234"
+}
+
+*/
+    // 회원가입 할때 필요한 정보들을 client에서 가져오면
+    // 그것들을 데이터 베이스에 넣어준다.
+    const user = new User(req.body) // {json 형식으로 들어가있음}
+
+    user.save((err, userInfo) => {
+        if(err) return res.json({success: false, err})
+        return res.status(200).json({
+            success: true
+        })
+    })
+})
+```
+> postMan툴에서 Body -> raw 탭에서 json 형식으로 데이터를 작성하고 post 형식으로 'localhost:5000/register' 으로 접속하게되면 결과값에 success : true 가 떨어지며 mongoDB를 확인하면 클라이언트가 보낸 데이터에 맞게 저장된것을 확인할 수 있다. 
+
+
+<br><br>
+
+## :large_orange_diamond: Nodemon 설치
