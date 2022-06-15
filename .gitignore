@@ -1,2 +1,3 @@
 boiler-plate/node-modules/*
 boiler-plate/node_modules/*/*
+boiler-plate/config/dev.js
