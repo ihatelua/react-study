@@ -1,6 +1,4 @@
-<span style="color:yellow">유효범위</span>
-
-# :green_book: nodeJS 
+# :white_check_mark: nodeJS 
 
 ## :large_orange_diamond: nodeJS 시작하기 
 * 자바스크립트를 서버에서도 사용할 수 있도록 만든 프로그램이다.
