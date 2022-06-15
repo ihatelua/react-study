@@ -154,9 +154,9 @@ module.exports = {User}
 
 ## :large_orange_diamond: BodyParser 와 PostMan 및 회원가입 기능
 
-### BodyParser 설치하기
+### :small_orange_diamond: BodyParser 설치하기
 
-클라이언트가 서버에 데이터를 보냈을때, 서버가 클라이언트가 보낸 데이터를 확인해야하는데, 클라이언트가 준 데이터를 그대로 사용하기가 어려워 데이터를 정제하여 서버로 보내야하는데 그 때 필요한 라이브러리가 BodyParser 이다.
+클라이언트가 서버에 데이터를 보냈을때, 서버가 클라이언트가 보낸 데이터를 확인해야한다.<br> 하지만 클라이언트가 준 데이터를 그대로 사용하기는 어렵고, 데이터를 정제하여 서버로 보내야하는데 그 때 필요한 라이브러리가 BodyParser 이다.
 
 ```
 npm install body-parser --save
@@ -164,16 +164,16 @@ npm install body-parser --save
 
 <br>
 
-### PostMan 설치하기
+### :small_orange_diamond: PostMan 설치하기
 
-클라이언트가 서버에 접속하면서 request(데이터) 를 보내야하는데 데이터를 쉽게 보낼수 있는 툴.
+클라이언트가 서버에 접속하면서 request(데이터) 를 보내야하는데 데이터를 쉽게 보낼수 있는 툴.<br>
 구글에 검색하면 무료로 다운로드 가능하다.
 
 
 <br>
 
 
-### Route 만들기
+### :small_orange_diamond: Route 만들기
 ```javascript
 // register 로 접속할때 보낸 api로 mongoDB에 저장
 app.post('/register', (req, res) => {
