@@ -203,4 +203,85 @@ app.post('/register', (req, res) => {
 
 <br><br>
 
-## :large_orange_diamond: Nodemon 설치
+## :large_orange_diamond: Nodemon 설치  
+라이브서버로 서버를 실행하기위해 Nodemon이라는 것을 설치한다.
+
+```
+npm install nodemon --save-dev
+```
+<span style="color:yellow">--save</span>가 아니라 <span style="color:yellow">--save-dev</span>를 붙이는 이유는 install 하게되면 dependencies가 devDependencies로 들어가기때문에 개발용 dependencies라는것을 명시하기위해서 사용한다.  
+  
+   
+### :small_orange_diamond: package.json 에서 라이브서버 스크립트 작성하기
+```json
+"scripts": {
+    "start": "node index.js",
+    "live": "nodemon index.js", // 여기에 작성한다.
+    "test": "echo \"Error: no test specified\" && exit 1"
+},
+```
+서버를 실행할때 'npm run live' 로 실행하면 서버가 변경될때 실시간으로 반영된다.
+
+
+<br><br>
+
+
+## :large_orange_diamond: 비밀 설정 정보 관리
+깃허브에 파일을 저장하다보면 다른 사용자에게 보여주지말아야할 비밀키가 있다.  
+예를들어 ssh키나 몽고db url 같은 키는 공개적으로 공유하게되면 문제되는경우가 생기기도 한다.  
+그 문제를 해결하기위해 키가 저장되어있는 파일을 하나 만들고 그 파일을 gitignore 로 서버에 올라가지못하도록 막으면 가능해진다.
+
+```javascript
+// index.js
+const config = require('./config/key')
+
+const mongoose = require('mongoose')
+mongoose.connect(config.mongoURI)
+```
+index 파일에서 mongoDB를 연결하는 URL부분에 키파일을 연결하여 url를 가져오도록 작성한다.
+
+<br><br>
+
+## :large_orange_diamond: Bcrypt 를 사용하여 비밀번호 암호화하기
+register로 유저정보를 저장할때 db에 비밀번호가 그대로 저장되면 보안적으로 문제가 된다.  
+그 문제를 해결하기위해 register로 유저정보가 저장하기전에 비밀번호를 암호화시켜 저장시키면된다.
+
+``` javascript
+// 암호화 라이브러리 설치
+npm install bcrypt --save
+
+// user.js
+const bcrypt = require('bcrypt');
+const saltRounds = 10;  // 암호화 글자 갯수
+
+userSchema.pre('save', function(next){
+    var user = this;
+    if(user.isModified('password')){    // 비밀번호가 변경일때
+        // 비밀번호를 암호화 시킨다.
+        // salt를 이용하여 비밀번호를 암호화시킨다.
+        bcrypt.genSalt(saltRounds, function(err, salt) {
+            if(err) return next(err);
+
+            bcrypt.hash(user.password, salt, function(err, hash) {
+                if(err) return next(err)
+                user.password = hash;
+                next();
+            });
+        });
+    }else{
+        next()
+    }
+});
+```
+'userSchema.pre('save', ' 유저스키마에서 저장(save)이 되기전(pre) 실행된다는 문법이다.  
+this로 현재 저장되는 유저정보를 가져오고, 오직 비밀번호가 변경일때만 저장되도록 체크하기위해 user.isModified를 사용했다.  
+bcrypt에서 salt라는 함수를 이용하여 비밀번호를 암호화시키는데 이때 saltRounds 라는것이 있다.  
+saltRounds 는 salt를 할 때 salt가 몇 글자인지 나타낸 변수이다. saltRounds 가 10이면 salt를 만들때 10글자인 salt를 만들어 비밀번호를 암호화시킨다는 뜻이다.
+
+  
+bcrypt.genSalt으로 salt를 만들고 bcrypt.hash로 사용자의 비밀번호를 암호화시킨다.  
+암호화시킨 비밀번호는 사용자 비밀번호에 넣어 유저정보를 저장하도록 next함수를 실행시킨다.
+
+
+<br><br>
+
