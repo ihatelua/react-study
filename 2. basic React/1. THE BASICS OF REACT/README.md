@@ -119,9 +119,9 @@ JSX 에서 가장 기억해야하는것은 대소문자를 구분해야한다.
         let counter = 0;
         function countUp() {
             counter = counter + 1;
-            render()
+            render()    
         }
-        function render() {
+        function render() { // {1}
             ReactDOM.render(<Container/>, root);
         }
         const Container = () => (
