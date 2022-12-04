@@ -151,7 +151,6 @@ JSX 에서 가장 기억해야하는것은 대소문자를 구분해야한다.
     <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <script type="text/babel">
-        const root = document.getElementById("root");
         const App = () => {
             const [counter, setCounter] = React.useState(0);
             const onClick = () => {
@@ -162,6 +161,7 @@ JSX 에서 가장 기억해야하는것은 대소문자를 구분해야한다.
                 <button onClick={onClick}>Click me</button>
             </div>)
         };
+        const root = document.getElementById("root");
         ReactDOM.render(<App/>, root);
     </script>
 </html>
