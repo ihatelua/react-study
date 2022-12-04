@@ -1,6 +1,6 @@
 # :white_check_mark: THE BASICS OF REACT
 
-## :large_orange_diamond: vanillaJS
+## :large_orange_diamond: VanillaJS
 ```javascript
 <!DOCTYPE html> 
 <html>
@@ -100,10 +100,12 @@ JSX 에서 가장 기억해야하는것은 대소문자를 구분해야한다.
 
 바닐라JS는 이벤트가 처리될때 처리되는 모든 부분이 업데이트되는 반면, 리액트는 다른부분만 업데이트가 된다.
 
+<br><br>
 
 # :white_check_mark: Understanding State
 ## :large_orange_diamond: Not a good way
 ```javascript
+<!DOCTYPE html> 
 <!DOCTYPE html> 
 <html>
     <body>
@@ -117,22 +119,56 @@ JSX 에서 가장 기억해야하는것은 대소문자를 구분해야한다.
         let counter = 0;
         function countUp() {
             counter = counter + 1;
-            ReactDOM.render(<Container/>, root);  // {1}
+            render()
+        }
+        function render() {
+            ReactDOM.render(<Container/>, root);
         }
         const Container = () => (
             <div>
-                <h3>Total clicks: {counter}</h3> // 중괄호를 넣으면 변수나 함수를 넣을수있다.
+                <h3>Total clicks: {counter}</h3>  
                 <button onClick={countUp}>Click me</button>
             </div>
         );
-        ReactDOM.render(<Container/>, root);
+        render()
     </script>
 </html>
 ```
 {1} 이 없을경우 렌더링이 1번만 돼서 counter가 1추가되더라도 렌더링이 되지않아 업데이트가 안된다.
-그 문제를 해결하기 위해 countup 이라는 함수에서 렌더링을 한 번 더 시켜줬다.
-하지만 이러한 방법은 좋지 않은 방법이다.
+이 문제를 해결하기 위해 render() 라는 함수로 렌더링을 한 번 더 시켜줬다.
+하지만 이러한 방법은 render함수를 계속 실행해줘야 하므로 좋은 방법은 아니다.
 
 <br><br>
 
 ## :large_orange_diamond: Best way
+```javascript
+<!DOCTYPE html> 
+<html>
+    <body>
+        <div id="root"></div>
+    </body>
+    <script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script type="text/babel">
+        const root = document.getElementById("root");
+        const App = () => {
+            const [counter, setCounter] = React.useState(0);
+            const onClick = () => {
+                setCounter(counter + 1)
+            }
+            return (<div>
+                <h3>Total clicks: {counter}</h3>  
+                <button onClick={onClick}>Click me</button>
+            </div>)
+        };
+        ReactDOM.render(<App/>, root);
+    </script>
+</html>
+```
+React.useState(초기값, 함수)  
+React.useState 로 초기값 0으로 초기화하고, counter, setCounter 라는 변수에 각각 초기값과 함수를 넣는다.  
+onClick 이라는 함수를 선언해 state함수로 counter라는 변수를 1씩 추가한다.  
+<br>
+setCounter 라는 함수로 state가 변경될때 컴포넌트가 재생성이 되고, 새로운 값으로 리렌더링이 된다.  
+즉 state가 바뀌면 리렌더링 된다.
