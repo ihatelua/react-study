@@ -54,7 +54,7 @@
 <br><br>
 
 ## :large_orange_diamond: ReactJS + JSX + babel
-```javascript
+```html
 <!DOCTYPE html> 
 <html>
     <body>
