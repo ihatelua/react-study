@@ -1,7 +1,7 @@
 # :white_check_mark: THE BASICS OF REACT
 
 ## :large_orange_diamond: VanillaJS
-```javascript
+```html
 <!DOCTYPE html> 
 <html>
 <body>
@@ -24,7 +24,7 @@
 <br><br>
 
 ## :large_orange_diamond: Old ReactJS
-```javascript
+```html
 <!DOCTYPE html> 
 <html>
     <body>
@@ -54,7 +54,7 @@
 <br><br>
 
 ## :large_orange_diamond: ReactJS + JSX + babel
-```javascript
+```html
 <!DOCTYPE html> 
 <html>
     <body>
@@ -104,7 +104,7 @@ JSX 에서 가장 기억해야하는것은 대소문자를 구분해야한다.
 
 # :white_check_mark: Understanding State
 ## :large_orange_diamond: Not a good way
-```javascript
+```html
 <!DOCTYPE html> 
 <!DOCTYPE html> 
 <html>
@@ -141,7 +141,7 @@ JSX 에서 가장 기억해야하는것은 대소문자를 구분해야한다.
 <br><br>
 
 ## :large_orange_diamond: Best way
-```javascript
+```html
 <!DOCTYPE html> 
 <html>
     <body>
