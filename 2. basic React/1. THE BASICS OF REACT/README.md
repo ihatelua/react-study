@@ -154,7 +154,8 @@ JSX 에서 가장 기억해야하는것은 대소문자를 구분해야한다.
         const App = () => {
             const [counter, setCounter] = React.useState(0);
             const onClick = () => {
-                setCounter(counter + 1)
+                // setCounter(counter + 1)
+                setCounter(current => current+1)
             }
             return (<div>
                 <h3>Total clicks: {counter}</h3>  
